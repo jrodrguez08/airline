@@ -38,6 +38,10 @@ const UserModel = new Schema({
   workphone: {
     type: String,
     required: true
+  },
+  type: {
+    type: String,
+    required: true
   }
 });
 
