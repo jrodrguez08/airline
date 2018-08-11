@@ -1,7 +1,7 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const passport = require('passport');
 const config = require('./config');
 
 const logger = require('./utils/logging');
@@ -12,6 +12,10 @@ const app = express();
 const routes = require('./routes/index');
 const port = process.env.PORT || 3000;
 
+const passport = require('./services/authService').init(app, config);
+
+app.use(cors());
+
 app.use(bodyParser.urlencoded({
   extended: true,
   limit: '1mb'
@@ -21,7 +25,7 @@ app.use(bodyParser.json({
   limit: '1mb'
 }));
 
-routes(app);
+routes(app, passport);
 
 app.listen(port, () => {
   console.log(`Running on port ${port}`);

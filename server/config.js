@@ -1,4 +1,8 @@
 module.exports = {
   db : 'mongodb://localhost:27017/airline',
-  passportSecret: 'airlineSecret'
+  session: {
+    secret: 'GW4EggDd6ZJ9',
+    saveUninitialized: true,
+    resave: true
+  }
 };

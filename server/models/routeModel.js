@@ -17,6 +17,10 @@ const RouteModel = new Schema({
   code: {
     type: String,
     required: true
+  },
+  plane: {
+    type: String,
+    required: true
   }
 });
 
