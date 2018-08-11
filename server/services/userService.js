@@ -5,7 +5,7 @@ const _ = require('lodash');
 
 module.exports.createUser = (user) => {
   const newUser = User(user);
-  newUser.password = User.generateHash(user.password);
+  newUser.password = newUser.generateHash(user.password);
   return databaseService.createEntity(User, newUser);
 };
 
