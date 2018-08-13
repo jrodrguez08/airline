@@ -1,8 +1,9 @@
+const _ = require('lodash');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const usersService = require('./userService');
+const userService = require('./userService');
 
 module.exports.init = (app, config) => {
 
@@ -24,9 +25,9 @@ module.exports.init = (app, config) => {
   });
 
   passport.use(new LocalStrategy((username, password, done) => {
-      usersService.getUserById(username)
+      userService.getUserById(username)
         .then((user) => {
-          if (!user) {
+          if (_.isEmpty(user)) {
             return done(null, false, {message: 'Incorrect username'});
           }
           if (!user.validPassword(password)) {
@@ -35,7 +36,7 @@ module.exports.init = (app, config) => {
           return done(null, user);
         })
         .catch((err) => {
-          global.log('error', '%j', err);
+          global.log('error', err);
         });
     }
   ));

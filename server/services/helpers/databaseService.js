@@ -21,7 +21,7 @@ module.exports.addManyEntities = (entity, params) => {
 module.exports.addManyEntitiesIfNotExists = (entity, filter, params) => {
   return new Promise(
     (resolve, reject) => {
-      let options = { new: true, upsert: true, setDefaultsOnInsert: true };
+      let options = {new: true, upsert: true, setDefaultsOnInsert: true};
       Promise.all(params.map((p) => {
         let query = {};
         query[filter] = p[filter];
@@ -37,7 +37,6 @@ module.exports.findOneEntityAndUpdate = (entity, query, params, options) => {
   return new Promise(
     (resolve, reject) => {
       entity.findOneAndUpdate(query, params, options)
-        .lean()
         .exec()
         .then(resolve)
         .catch(reject);
@@ -49,7 +48,6 @@ module.exports.getOneEntity = (entity, params) => {
   return new Promise(
     (resolve, reject) => {
       entity.findOne(params)
-        .lean()
         .exec()
         .then(resolve)
         .catch(reject);
@@ -62,7 +60,6 @@ module.exports.getAllEntities = (entity, params, fields, sort) => {
     (resolve, reject) => {
       entity.find(params, fields)
         .sort(sort)
-        .lean()
         .exec()
         .then(resolve)
         .catch(reject);
@@ -75,7 +72,6 @@ module.exports.countEntities = (entity, params) => {
     (resolve, reject) => {
       entity.find(params)
         .count()
-        .lean()
         .exec()
         .then(resolve)
         .catch(reject);
@@ -86,8 +82,7 @@ module.exports.countEntities = (entity, params) => {
 module.exports.updateEntity = (entity, params) => {
   return new Promise(
     (resolve, reject) => {
-      entity.findByIdAndUpdate(params.id, { $set: params.data }, { new: true })
-        .lean()
+      entity.findByIdAndUpdate(params.id, {$set: params.data}, {new: true})
         .exec()
         .then(resolve)
         .catch(reject);
